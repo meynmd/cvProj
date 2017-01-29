@@ -1,4 +1,4 @@
-function bbCorners = analyze(path)
+function bbCorners = trackObject(path)
     InitCorners = [190 52 341 264];
     
     % get the list of frames to analyze
@@ -27,6 +27,13 @@ function bbCorners = analyze(path)
         rectangle('Position', bbCorners(i, :), 'EdgeColor', 'y', 'LineWidth', 2);
         rectangle('Position', gtBoxes(i, :), 'EdgeColor', 'b', 'LineWidth', 2);        
         drawnow; hold off;       
+        
+        if mod(i, 10) == 0
+            cd('../results');
+            outFilename = strcat('frame', string(i), '.png');
+            saveas(gcf, char(outFilename));
+            cd(char(strcat('../', path)));
+        end
         
     end
 
